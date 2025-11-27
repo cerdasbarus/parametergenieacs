@@ -50,8 +50,8 @@ show collections
 ```bash
 mkdir -p /root/gacs-parameter
 cd /root/gacs-parameter
-wget https://github.com/safrinnetwork/GACS-Ubuntu-22.04/archive/refs/heads/main.zip -O parameter.zip
-unzip parameter.zip
+wget https://github.com/cerdasbarus/parametergenieacs/archive/refs/heads/main.zip -O parametergenieacs.zip
+unzip parametergenieacs.zip
 ```
 
 6. **Restore parameter ke MongoDB**
