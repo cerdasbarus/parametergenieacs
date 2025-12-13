@@ -88,7 +88,7 @@ docker exec -i mongodb mongorestore \
 /data/restore
 ```
 
-8. Cek Hasil Restore
+## 8. Cek Hasil Restore
 
 ```bash
 docker exec -it mongodb mongo
@@ -98,7 +98,7 @@ show collections
 
 
 
-## 8. Backup & Tips
+## 9. Backup & Tips
 
 * Data tersimpan di `/root/mongo-data`, aman saat restart atau reinstall Docker.
 * Backup manual:
