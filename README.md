@@ -58,7 +58,7 @@ show collections
 ```bash
 mkdir -p /root/gacs-parameter
 cd /root/gacs-parameter
-wget https://github.com/cerdasbarus/parametergenieacs/archive/refs/heads/main.zip -O parametergenieacs.zip
+git clone https://github.com/cerdasbarus/parametergenieacs.git GACS-Ubuntu-22.04-main
 unzip parametergenieacs.zip
 ```
 
