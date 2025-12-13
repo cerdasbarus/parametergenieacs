@@ -50,6 +50,7 @@ docker exec -it mongodb mongo
 use genieacs
 show collections
 ```
+Jika masih kosong, itu normal sebelum restore.
 
 ---
 
@@ -58,53 +59,39 @@ show collections
 ```bash
 mkdir -p /root/gacs-parameter
 cd /root/gacs-parameter
-git clone https://github.com/cerdasbarus/parametergenieacs.git GACS-Ubuntu-22.04-main
-unzip parametergenieacs.zip
+git clone https://github.com/cerdasbarus/parametergenieacs.git
 ```
 
 ---
 
-## 6. Restore Parameter ke MongoDB
+## 6.1 Restore Parameter ke MongoDB
 
 1. Stop container jika berjalan:
 
 ```bash
-docker stop mongodb
-docker rm mongodb
+docker cp /root/gacs-parameter/parametergenieacs mongodb:/data/restore
 ```
 
-2. Jalankan MongoDB dengan folder parameter sebagai volume **read-only**:
+## 7 Lakukan restore ke database genieacs
+
+1. Stop container jika berjalan:
 
 ```bash
-docker run -d \
-  --name mongodb \
-  -p 27017:27017 \
-  -v /root/mongo-data:/data/db \
-  -v /root/gacs-parameter/parametergenieacs-main/parameter:/data/parameter:ro \
-  --restart=always \
-  arm64v8/mongo:4.4.18
+docker exec -i mongodb mongorestore \
+--db genieacs \
+--drop \
+/data/restore
 ```
 
-3. Restore parameter ke database `genieacs`:
-
-```bash
-docker exec -i mongodb mongorestore --db genieacs --drop /data/parameter
-```
-
-> Output akan menampilkan jumlah dokumen yang berhasil di-restore.
-
----
-
-## 7. Cek Apakah Parameter Berhasil Diimport
+8. Cek Hasil Restore
 
 ```bash
 docker exec -it mongodb mongo
 use genieacs
 show collections
-db.virtualParameters.find().pretty()
 ```
 
----
+
 
 ## 8. Backup & Tips
 
@@ -112,13 +99,13 @@ db.virtualParameters.find().pretty()
 * Backup manual:
 
 ```bash
-docker exec -i mongodb mongodump --db genieacs --out /data/db-backup
+docker exec -i mongodb mongodump --db genieacs --out /data/backup
 ```
 
 * Restore dari backup:
 
 ```bash
-docker exec -i mongodb mongorestore --db genieacs --drop /data/db-backup/genieacs
+docker exec -i mongodb mongorestore --db genieacs --drop /data/backup/genieacs
 ```
 
 ---
