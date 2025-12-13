@@ -52,6 +52,11 @@ show collections
 ```
 Jika masih kosong, itu normal sebelum restore.
 
+Lalu exit:
+
+```bash
+exit
+```
 ---
 
 ## 5. Ambil Parameter dari GitHub
